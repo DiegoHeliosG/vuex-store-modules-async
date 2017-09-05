@@ -9,7 +9,9 @@ export const actions = {
     /* Asynchronous nuxtServerInit actions must return a Promise
     to allow the nuxt server to wait on them.
     https://nuxtjs.org/guide/vuex-store/#the-nuxtserverinit-action */
-    return dispatch('entities/posts/find', postId)
-      .then(result => dispatch('entities/comments/findByPostId', postId))
+    return Promise.all([
+      dispatch('entities/posts/find', postId),
+      dispatch('entities/comments/findByPostId', postId)
+    ])
   }
 }
